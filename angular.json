@@ -10,7 +10,10 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "architect": {
@@ -23,6 +26,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -99,7 +103,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "tsConfig": "tsconfig.prod.json",
+              "tsConfig": "tsconfig.app.json",
               "serviceWorker": false,
               "budgets": [
                 {

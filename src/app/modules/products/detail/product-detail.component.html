@@ -1,4 +1,4 @@
-<apt-detail [title]="viewState?.product?.Name" [subtitle]="productCode" [context]="viewState?.product" *ngIf="viewState$ | async as viewState; else loading">
+<apt-detail [title]="viewState?.product?.Name" [context]="viewState?.product" *ngIf="viewState$ | async as viewState; else loading">
 
   <div class="constraintAlerts">
     <apt-alert></apt-alert>
