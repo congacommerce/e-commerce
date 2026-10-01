@@ -9,6 +9,7 @@ import { FavoriteDetailsComponent } from './layout/favorite-details/favorite-det
 const routes: Routes = [
   {
     path: ':id',
+    title: 'Favorite Details',
     component: FavoriteDetailsComponent
   },
   {

@@ -2,26 +2,26 @@
   <div class="card-body">
     <div class="row">
       <div class="col-12 col-md-6">
-        <div class="form-group">
-          <apt-input-field [entity]="quote" [field]="'Proposal_Name'" [(ngModel)]="quote.Proposal_Name" (ngModelChange)="quoteChange()" [label]="'Quote Title'"></apt-input-field>
+        <div class="mb-3">
+          <apt-input-field [entity]="quote" [field]="'Proposal_Name'" [(ngModel)]="quote.Proposal_Name" (ngModelChange)="quoteChange()" label="{{'CREATE_QUOTE.QUOTE_TITLE' | translate }}"></apt-input-field>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
           <apt-input-field [entity]="quote" [field]="'RFP_Response_Due_Date'" [(ngModel)]="quote.RFP_Response_Due_Date" (ngModelChange)="quoteChange()">
           </apt-input-field>
         </div>
-        <div class="form-group">
-          <apt-input-field placeholder="{{'CREATE_QUOTE.SEARCH_CONTACTS' | translate }}" [entity]="quote" [field]="'Primary_ContactId'" [lookupOptions]="lookupOptions" [required]="true" [(ngModel)]="contactId" (ngModelChange)="primaryContactChange()" [errorMsg]="'Primary contact is mandatory'">
+        <div class="mb-3">
+          <apt-input-field placeholder="{{'CREATE_QUOTE.SEARCH_CONTACTS' | translate }}" [entity]="quote" [field]="'Primary_ContactId'" [lookupOptions]="lookupOptions" [required]="true" [(ngModel)]="contactId" (ngModelChange)="primaryContactChange()" [errorMsg]="'CREATE_QUOTE.PRIMARY_CONTACT_IS_MANDATORY' | translate">
           </apt-input-field>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
           <apt-input-field [entity]="quote" [field]="'ShipToAccountId'" [(ngModel)]="quote.ShipToAccountId" (ngModelChange)="shipToChange()"></apt-input-field>
-          <small class="px-3 font-italic d-block" *ngIf="shipToAccount$ | async as shipToAccount">
+          <small class="px-3 fst-italic d-block" *ngIf="shipToAccount$ | async as shipToAccount">
             <apt-address [ngModel]="shipToAccount" [readonly]="true" type="Shipping"></apt-address>
           </small>
         </div> 
-        <div class="form-group">
+        <div class="mb-3">
           <apt-input-field [entity]="quote" [field]="'BillToAccountId'" [(ngModel)]="quote.BillToAccountId" (ngModelChange)="billToChange()"> </apt-input-field>
-          <small class="px-3 font-italic d-block" *ngIf="billToAccount$ | async as billToAccount">
+          <small class="px-3 fst-italic d-block" *ngIf="billToAccount$ | async as billToAccount">
             <apt-address [ngModel]="billToAccount" [readonly]="true" type="Billing"></apt-address>
           </small>
         </div>
@@ -51,12 +51,12 @@
                       </ng-template>
                     </ng-scrollbar>
                   </div>
-                  <div class="form-group">
-                      <apt-input-field [entity]="note" field="Body" rows="5" label="{{'COMMON.COMMENTS' | translate }}" [(ngModel)]="note.Body" name="body"  (ngModelChange)="addComment()"></apt-input-field>
+                  <div class="mb-3">
+                    <apt-input-field [entity]="note" field="Body" rows="5" label="{{'COMMON.COMMENTS' | translate }}" [(ngModel)]="note.Body" name="body"  (ngModelChange)="addComment()"></apt-input-field>
                   </div>
                 </div>
            </div>
-        <!-- <div class="form-group">
+        <!-- <div class="mb-3">
           <label for="exampleFormControlTextarea1">Attachments</label>
           <div class="border attachment-box"></div>
         </div> -->

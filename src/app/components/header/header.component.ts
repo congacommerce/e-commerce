@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { Storefront, StorefrontService, UserService, User } from '@congacommerce/ecommerce';
 import { MiniProfileComponent } from '@congacommerce/elements';
@@ -10,7 +10,8 @@ import { MiniProfileComponent } from '@congacommerce/elements';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('profile', { static: false }) profile: MiniProfileComponent;
@@ -32,7 +33,8 @@ export class HeaderComponent implements OnInit {
 
   doLogout() {
     this.profile.doLogout();
-    this.router.navigate(['/']);
+    // The MiniProfileComponent.doLogout() handles navigation via window.location.reload()
+    // No need to navigate here as it would interfere with the logout process
   }
 
   @HostListener('window:scroll', ['$event'])

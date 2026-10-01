@@ -5,6 +5,7 @@ import { PaymentMessageComponent } from './layout/payment-message.component';
 const routes: Routes = [
   {
     path : '',
+    title: 'Payment Message',
     component : PaymentMessageComponent
   }
 ];

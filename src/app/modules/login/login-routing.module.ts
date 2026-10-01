@@ -1,26 +1,25 @@
-/**
- * Apttus Digital Commerce
- *
- * Dedicated routing module for the Login module.
- */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginLayoutComponent } from './layout/login-layout.component';
+import { LoginViewComponent } from './layout/login-view.component';
+import { LogoutViewComponent } from './layout/logout-view.component';
+
 
 const routes: Routes = [
   {
-    path: ':orderId',
-    component: LoginLayoutComponent
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
-    path: '',
-    component: LoginLayoutComponent
+    path: 'login',
+    component: LoginViewComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutViewComponent
   }
 ];
 
-/**
- * @internal
- */
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

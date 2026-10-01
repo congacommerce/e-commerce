@@ -12,7 +12,8 @@ const sv = (<any>window).sv;
 @Component({
   selector: 'app-change-password-layout',
   templateUrl: './change-password-layout.component.html',
-  styleUrls: ['./change-password-layout.component.scss']
+  styleUrls: ['./change-password-layout.component.scss'],
+  standalone: false
 })
 export class ChangePasswordLayoutComponent {
 

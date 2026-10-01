@@ -9,7 +9,8 @@ import { DetailSectionComponent } from '../component/detail-section/detail-secti
 @Component({
   selector: 'app-detail',
   templateUrl: './details-layout.component.html',
-  styleUrls: ['./details-layout.component.scss']
+  styleUrls: ['./details-layout.component.scss'],
+  standalone: false
 })
 export class DetailsLayoutComponent implements AfterContentInit {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Order, OrderLineItem, OrderService, ProductService, Product } from '@congacommerce/ecommerce';
 import * as _ from 'lodash';
 import { flatMap } from 'rxjs/operators';
@@ -9,7 +9,8 @@ import { flatMap } from 'rxjs/operators';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss']
+  styleUrls: ['./order-detail.component.scss'],
+  standalone: false
 })
 export class OrderDetailComponent implements OnInit {
   modalRef: BsModalRef;

@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, OnDestroy, NgZone } from '@angular/core';
 import { User, Account, Cart, CartService, Order, OrderService, Contact, ContactService, UserService, AccountService, EmailService, PaymentTransaction, AccountInfo } from '@congacommerce/ecommerce';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Card } from '../component/card-form/card-form.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { get, uniqueId, find, defaultTo, toString, round } from 'lodash';
@@ -16,7 +16,8 @@ import { ExceptionService, PriceSummaryComponent, BreadcrumbLink } from '@congac
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  standalone: false
 })
 export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('addressTabs') addressTabs: any;
@@ -100,7 +101,6 @@ export class CartComponent implements OnInit, OnDestroy {
     requiredEmail: ''
   };
   cart: Cart;
-  isLoggedIn: boolean;
   shipToAccount$: Observable<Account>;
   billToAccount$: Observable<Account>;
   pricingSummaryType: 'checkout' | 'paymentForOrder' | '' = 'checkout';
@@ -130,11 +130,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.userService.isLoggedIn().subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn));
     this.subscriptions.push(this.userService.getCurrentUserLocale(false).subscribe((currentLocale) => this.currentUserLocale = currentLocale));
-
-    if (!this.isLoggedIn)
-      this.paymentState = 'PAYNOW';
 
     this.subscriptions.push(this.cartService.getMyCart().subscribe(cart => {
       this.cart = cart;
@@ -143,7 +139,18 @@ export class CartComponent implements OnInit, OnDestroy {
       this.model.ShipToAccountId = get(cart, 'AccountId');
       this.model.SoldToAccountId = get(cart, 'AccountId');
     }));
-    this.subscriptions.push(this.contactService.getMyContact().subscribe(c => this.primaryContact = c));
+
+    // Combine contact + user so primaryContact.Email is always populated for /checkout
+    this.subscriptions.push(
+      combineLatest([this.contactService.getMyContact(), this.userService.me()])
+        .subscribe(([contact, user]) => {
+          if (contact && !contact.Email && user.Email) {
+            contact.Email = user.Email;
+          }
+          this.primaryContact = contact;
+        })
+    );
+
     this.order = new Order();
     this.card = {} as Card;
     this.user$ = this.userService.me();
@@ -158,7 +165,6 @@ export class CartComponent implements OnInit, OnDestroy {
         }
       ];
     });
-
     this.onBillToChange();
     this.onShipToChange();
   }
@@ -184,28 +190,14 @@ export class CartComponent implements OnInit, OnDestroy {
     const orderAmountGroup = find(get(this.cart, 'SummaryGroups'), c => get(c, 'LineType') === 'Grand Total');
     this.orderAmount = defaultTo(get(orderAmountGroup, 'NetPrice', 0).toString(), '0');
     this.loading = true;
-    if (this.isLoggedIn) {
-      let selectedAcc: AccountInfo = {
-        BillToAccountId: this.model.BillToAccountId,
-        ShipToAccountId: this.model.ShipToAccountId,
-        SoldToAccountId: this.model.SoldToAccountId
-      };
+    
+    let selectedAcc: AccountInfo = {
+      BillToAccountId: this.model.BillToAccountId,
+      ShipToAccountId: this.model.ShipToAccountId,
+      SoldToAccountId: this.model.SoldToAccountId
+    };
 
-      this.convertCartToOrder(this.order, this.primaryContact, null, selectedAcc);
-    }
-    else {
-      if (this.shippingEqualsBilling) {
-        this.primaryContact.OtherCity = this.primaryContact.MailingCity;
-        this.primaryContact.OtherStreet = this.primaryContact.MailingStreet;
-        this.primaryContact.OtherState = this.primaryContact.MailingState;
-        this.primaryContact.OtherStateCode = this.primaryContact.MailingStateCode;
-        this.primaryContact.OtherPostalCode = this.primaryContact.MailingPostalCode;
-        this.primaryContact.OtherCountryCode = this.primaryContact.MailingCountryCode;
-        this.primaryContact.OtherCountry = this.primaryContact.MailingCountry;
-      }
-
-      this.convertCartToOrder(this.order, this.primaryContact);
-    }
+    this.convertCartToOrder(this.order, this.primaryContact, null, selectedAcc);
   }
 
 
@@ -259,14 +251,14 @@ export class CartComponent implements OnInit, OnDestroy {
     this.paymentTransaction.CustomerFirstName = get(this.primaryContact, 'FirstName');
     this.paymentTransaction.CustomerLastName = get(this.primaryContact, 'LastName');
     this.paymentTransaction.CustomerEmailAddress = get(this.primaryContact, 'Email');
-    this.paymentTransaction.CustomerAddressLine1 = this.isLoggedIn ? get(orderDetails.BillToAccount, 'BillingStreet') : get(this.primaryContact, 'MailingStreet');
-    this.paymentTransaction.CustomerAddressCity = this.isLoggedIn ? get(orderDetails.BillToAccount, 'BillingCity') : get(this.primaryContact, 'MailingCity');
-    this.paymentTransaction.CustomerAddressStateCode = this.isLoggedIn ? get(orderDetails.BillToAccount, 'BillingAddress.stateCode') : get(this.primaryContact, 'MailingStateCode');
-    this.paymentTransaction.CustomerAddressCountryCode = this.isLoggedIn ? get(orderDetails.BillToAccount, 'BillingAddress.countryCode') : get(this.primaryContact, 'MailingCountryCode');
-    this.paymentTransaction.CustomerAddressPostalCode = this.isLoggedIn ? get(orderDetails.BillToAccount, 'BillingAddress.postalCode') : get(this.primaryContact, 'MailingPostalCode');
+    this.paymentTransaction.CustomerAddressLine1 = get(orderDetails.BillToAccount, 'BillingStreet');
+    this.paymentTransaction.CustomerAddressCity = get(orderDetails.BillToAccount, 'BillingCity');
+    this.paymentTransaction.CustomerAddressStateCode = get(orderDetails.BillToAccount, 'BillingAddress.stateCode');
+    this.paymentTransaction.CustomerAddressCountryCode = get(orderDetails.BillToAccount, 'BillingAddress.countryCode');
+    this.paymentTransaction.CustomerAddressPostalCode = get(orderDetails.BillToAccount, 'BillingAddress.postalCode');
     this.paymentTransaction.CustomerBillingAccountName = get(orderDetails.BillToAccount, 'Name');
     this.paymentTransaction.CustomerBillingAccountID = get(orderDetails.BillToAccount, 'Id');
-    this.paymentTransaction.isUserLoggedIn = this.isLoggedIn;
+    this.paymentTransaction.isUserLoggedIn = true;
     // Rounding off the string amount to 2 decimal places as cybersource doesn't allow higher numeric scale on order amount.
     this.paymentTransaction.OrderAmount = toString(round(parseFloat(this.orderAmount), 2));
     this.paymentTransaction.Locale = this.currentUserLocale ;
@@ -321,8 +313,6 @@ export class CartComponent implements OnInit, OnDestroy {
     else {
       this.isPaymentCompleted = true;
     }
-    if (get(this.orderConfirmation, 'Id'))
-      this.emailService.guestUserNewOrderNotification(this.orderConfirmation.Id, `${this.configurationService.resourceLocation()}#/orders/${this.orderConfirmation.Id}`).pipe(take(1)).subscribe();
   }
 
   /**
@@ -338,8 +328,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.ngZone.run(() => {
       this.confirmationModal = this.modalService.show(this.confirmationTemplate, { class: 'modal-lg' });
     });
-    if (get(this.orderConfirmation, 'Id'))
-      this.emailService.guestUserNewOrderNotification(this.orderConfirmation.Id, `${this.configurationService.resourceLocation()}#/orders/${this.orderConfirmation.Id}`).pipe(take(1)).subscribe();
   }
 
 

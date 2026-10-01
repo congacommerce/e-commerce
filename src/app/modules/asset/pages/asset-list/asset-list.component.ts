@@ -5,7 +5,8 @@ import { AssetLineItemExtended } from '@congacommerce/ecommerce';
 @Component({
   selector: 'ngsw-asset-list',
   templateUrl: './asset-list.component.html',
-  styleUrls: ['./asset-list.component.scss']
+  styleUrls: ['./asset-list.component.scss'],
+  standalone: false
 })
 export class AssetListComponent implements OnInit {
 

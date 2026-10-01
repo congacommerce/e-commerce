@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-order-history-layout',
   templateUrl: './order-history-layout.component.html',
-  styleUrls: ['./order-history-layout.component.scss']
+  styleUrls: ['./order-history-layout.component.scss'],
+  standalone: false
 })
 export class OrderHistoryLayoutComponent implements OnInit {
 

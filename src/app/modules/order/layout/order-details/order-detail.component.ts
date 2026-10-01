@@ -33,7 +33,8 @@ import { ACondition, APageInfo, AFilter, ApiService } from '@congacommerce/core'
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class OrderDetailComponent implements OnInit, OnDestroy, AfterViewChecked {
 

@@ -10,6 +10,7 @@ import { CartComponent } from './layout/cart.component';
 const routes: Routes = [
   {
       path: '',
+      title: 'Checkout',
       component: CartComponent
   }
 ];

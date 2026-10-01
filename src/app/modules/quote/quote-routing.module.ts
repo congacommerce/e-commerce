@@ -13,16 +13,19 @@ import { DetailsGuard } from '@congacommerce/ecommerce';
 const routes: Routes = [
   {
     path: 'create',
+    title: 'Create Proposal',
     component: CreateQuoteComponent
   },
   {
     path: ':id',
+    title: 'Proposal Details',
     component: QuoteDetailsComponent,
     canActivate: [DetailsGuard]
   },
   {
     path: '',
-    redirectTo: '/my-account/quotes'
+    redirectTo: '/my-account/quotes',
+    pathMatch: 'full'
   }
 ];
 

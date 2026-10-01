@@ -12,7 +12,8 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-request-quote-form',
   templateUrl: './request-quote-form.component.html',
-  styleUrls: ['./request-quote-form.component.scss']
+  styleUrls: ['./request-quote-form.component.scss'],
+  standalone: false
 })
 export class RequestQuoteFormComponent implements OnInit {
   @Input() cart: Cart;
@@ -43,19 +44,30 @@ export class RequestQuoteFormComponent implements OnInit {
 
   ngOnInit() {
     this.quote.Name = 'Test';
-    zip(this.accountService.getCurrentAccount(), this.userService.me(),(this.cart.Proposald? this.quoteService.get([get(this.cart, 'Proposald.Id')]) : of(null))).pipe(take(1)).subscribe(([account, user, quote]) => {
-        this.quote.ShipToAccount = account;
-        this.quote.ShipToAccountId = account.Id;
-        this.quote.BillToAccount = account;
-        this.quote.BillToAccountId =  account.Id;
-        this.quote.Primary_Contact = get(user, 'Contact');
-        this.contactId = this.cart.Proposald?  get(quote[0],'Primary_ContactId') : get(user, 'ContactId');
-        if(get(this.cart, 'Proposald.Id')) {
-          this.quote = get(this.cart, 'Proposald');
-          this.comments = get(quote, '[0].Notes', []);
+    zip(this.accountService.getCurrentAccount(), this.userService.me(), (this.cart.Proposald ? this.quoteService.get([get(this.cart, 'Proposald.Id')]) : of(null))).pipe(take(1)).subscribe(([account, user, existingQuote]) => {
+      this.quote.ShipToAccount = account;
+      this.quote.ShipToAccountId = account.Id;
+      this.quote.BillToAccount = account;
+      this.quote.BillToAccountId = account.Id;
+      this.contactId = this.cart.Proposald ? get(existingQuote[0], 'Primary_ContactId') : get(user, 'ContactId');
+      if (get(this.cart, 'Proposald.Id')) {
+        this.quote = get(this.cart, 'Proposald');
+        this.comments = get(existingQuote, '[0].Notes', []);
+      }
+      this.quoteChange();
+    });
+
+    // Fetch the contact record explicitly — user.Contact is not always populated in the API response
+    this.contactService.getMyContact().pipe(take(1)).subscribe(contact => {
+      if (contact && contact.Id) {
+        this.quote.Primary_Contact = contact;
+        this.quote.Primary_ContactId = contact.Id;
+        if (!this.contactId) {
+          this.contactId = contact.Id;
         }
         this.quoteChange();
-      });
+      }
+    });
   }
 
   /**

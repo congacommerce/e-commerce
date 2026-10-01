@@ -3,8 +3,8 @@
   <div class="detail-header py-4">
     <div class="d-flex align-items-center mb-2">
       <h3 class="m-0">{{order?.Name}}</h3>
-      <span class="badge badge-info ml-3 px-3 py-1 border text-uppercase" *ngIf="order?.Status">{{order?.Status}}</span>
-      <div *ngIf="order?.Proposal as proposal" class="ml-auto">
+      <span class="badge text-bg-info ms-3 px-3 py-1 border text-uppercase" *ngIf="order?.Status">{{order?.Status}}</span>
+      <div *ngIf="order?.Proposal as proposal" class="ms-auto">
         <apt-output-field [record]="proposal" field="Name" labelClass="d-none" layout="inline" [editable]="false" [showQuickView]="true"></apt-output-field>
       </div>
     </div>
@@ -80,10 +80,10 @@
           *ngIf="noteList?.length > 0">({{noteList?.length}}) </span>
         </h5>
         <div class="row">
-          <div class="col-12 col-md-6 border-right note-container">
+          <div class="col-12 col-md-6 border-end note-container">
             <ng-scrollbar >
               <ng-container *ngIf="noteList?.length > 0; else emptyNotes">
-                <div class="my-3 pb-3 pl-3" *ngFor="let note of noteList">
+                <div class="my-3 pb-3 ps-3" *ngFor="let note of noteList">
                   <!-- <strong class="d-block">{{note?.Title}}</strong> -->
                   <div class="text-muted d-block mb-2"><strong>{{note?.CreatedBy?.Name}}</strong>
                     {{'COMMON.ON' | translate }}
