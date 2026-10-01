@@ -4,17 +4,19 @@ import { first, isArray, sumBy, get, mapValues, omit, groupBy, zipObject, map as
 import { map, take, tap } from 'rxjs/operators';
 
 import { ACondition, AFilter } from '@congacommerce/core';
-import { OrderService, Order, UserService, User } from '@congacommerce/ecommerce';
+import { OrderService, Order, UserService, User, QuoteService, Quote } from '@congacommerce/ecommerce';
 import { TableOptions } from '@congacommerce/elements';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  standalone: false
 })
 export class DashboardComponent implements OnInit {
   type = Order;
-  
+  quoteType = Quote;
+
   private recentOrders$: Observable<boolean>;
   user$: Observable<User>;
   totalOrderAmount$: Observable<number>;
@@ -38,10 +40,26 @@ export class DashboardComponent implements OnInit {
     filters: [new AFilter(Order, [new ACondition(Order, 'CreatedDate', 'LastXDays', 7)])]
   };
 
+  quoteTableOptions: TableOptions = {
+    columns: [
+      {
+        prop: 'Name'
+      },
+      {
+        prop: 'GrandTotal'
+      },
+      {
+        prop: 'CreatedDate'
+      }
+    ],
+    filters: [new AFilter(Quote, [new ACondition(Quote, 'CreatedDate', 'LastXDays', 7)])],
+    limit: 5
+  };
+
   /**
   * @ignore
   */
-  constructor(private orderService: OrderService, private userService: UserService) { }
+  constructor(private orderService: OrderService, private userService: UserService, private quoteService: QuoteService) { }
 
   /**
   * @ignore

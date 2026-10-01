@@ -65,8 +65,8 @@
   <div class="row mt-3">
     <div class="col-12">
       <div class="card p-0">
-        <table class="table">
-          <thead>
+        <table class="table table-borderless">
+          <thead class="border-bottom">
             <tr>
               <th scope="col">{{'COMMON.ITEMS' | translate}}</th>
               <th scope="col">{{'COMMON.YOUR_PRICE' | translate}}</th>
@@ -75,12 +75,12 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let lineItem of order?.OrderLineItems">
-              <tr *ngIf="lineItem.LineType === 'Product/Service'">
+              <tr *ngIf="lineItem.LineType === 'Product/Service'" class="border-bottom">
                 <th scope="row">
-                  <div class="media align-items-stretch">
-                    <img class="mr-3" [src]="lineItem.Product.IconId | image" width="75" height="60"
+                  <div class="d-flex align-items-stretch">
+                    <img class="me-3" [src]="lineItem.Product.IconId | image" width="75" height="60"
                       alt="Generic placeholder image">
-                    <div class="media-body d-flex flex-column justify-content-between">
+                    <div class="flex-grow-1 d-flex flex-column justify-content-between">
                       <div>
                         <h6 class="m-0">
                           <a href="javascript:void(0)" [routerLink]="['/products', lineItem.Product[identifier]]">{{lineItem.Product?.Name}}</a>
@@ -88,7 +88,7 @@
                         <small>
                           <strong>{{'COMMON.PRODUCT_CODE' | translate}}:</strong>&nbsp;{{lineItem.Product.ProductCode}}
                           <!-- <a class="d-block mt-1" href="javascript:void(0)" *ngIf="lineItem.HasOptions" (click)="openModal(configurationTemplate, lineItem)">
-                            <span class="oi oi-wrench mr-1"></span>Configuration
+                            <span class="oi oi-wrench me-1"></span>Configuration
                           </a> -->
                         </small>
                       </div>
@@ -97,7 +97,7 @@
                 </th>
                 <td>{{(lineItem | OrderLineItemPricePipe | async)?.netPrice$ | async}}</td>
                 <td class="text-center">
-                  <span class="badge badge-light p-3 text-muted">{{lineItem.Quantity}}</span>
+                  <span class="badge text-bg-light p-3 text-muted">{{lineItem.Quantity}}</span>
                 </td>
               </tr>
             </ng-container>
@@ -110,9 +110,8 @@
 
 <ng-template #configurationTemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">{{'MY_ACCOUNT.ORDER_DETAIL.PRODUCT_CONFIG' | translate}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
+    <h4 class="modal-title float-start">{{'MY_ACCOUNT.ORDER_DETAIL.PRODUCT_CONFIG' | translate}}</h4>
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="modalRef.hide()">
     </button>
   </div>
   <div class="modal-body">

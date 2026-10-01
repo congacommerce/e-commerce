@@ -10,7 +10,8 @@ import { map as rmap, mergeMap, take } from 'rxjs/operators';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  styleUrls: ['./product-list.component.scss'],
+  standalone: false
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 

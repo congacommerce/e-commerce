@@ -1,15 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
-$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
-$roboto-font-path: '~roboto-fontface/fonts';
+$roboto-font-path: 'roboto-fontface/fonts';
 @import "variables";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/v4-shims";
-@import "~bootstrap/scss/bootstrap";
-@import '~ngx-toastr/toastr-bs4-alert';
-@import '~ngx-bootstrap/datepicker/bs-datepicker.css';
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "bootstrap/scss/bootstrap";
+
+// BS5 sets tbody border-top to 2px solid currentColor (black) via table-group-divider.
+// Override to match the standard light table border color.
+.table > :not(caption) > * {
+    border-top-color: var(--bs-border-color);
+    border-top-width: 1px;
+}
+// BS5 .table > :not(caption) > * > * sets border-bottom-width which renders as black.
+// Override all table cell borders to use the light theme border color.
+.table > :not(caption) > * > * {
+    border-bottom-color: var(--bs-border-color);
+    border-bottom-width: var(--bs-border-width);
+}
+@import 'ngx-toastr/toastr';
+@import '@congacommerce/elements/styles/btn-material';
+// ngx-bootstrap's package exports map does not expose the datepicker Sass source, so the
+// compiled .css must be imported here. Sass emits this as a plain CSS @import, which is intentional.
+@import 'ngx-bootstrap/datepicker/bs-datepicker.css';
+@import "@ng-select/ng-select/scss/default.theme";
 
 /* latin-ext */
 @font-face {
@@ -90,6 +102,7 @@ apt-spinner.small svg{
 apt-breadcrumb{
     display: block;
     padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 pdp-tab-options{
@@ -197,8 +210,8 @@ button{
  * Add margin to the main section to accomodate header
  */
 main{
-    margin-top: $navbar-brand-height;
-    min-height: calc(100vh - #{$navbar-brand-height});
+    margin-top: $app-navbar-height;
+    min-height: calc(100vh - #{$app-navbar-height});
 }
 
 /**
@@ -257,7 +270,7 @@ dl{
     font-size: inherit;
 }
 app-manage-cart apt-line-item-table-row apt-input-field {
-    label.font-weight-bold {
+    label.fw-bold {
     margin-top: unset;
     padding-bottom: 0.2rem;
     margin-bottom: unset;
@@ -270,3 +283,43 @@ ng-select.form-control  {
 }
 
 }
+
+// Global form-check alignment: flexbox is more reliable than BS5's default float+margin-top approach
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0;
+
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.form-check-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0;
+  margin-right: 1rem;
+}
+
+// Global keyframes — moved from components to avoid Angular 15 scoped @keyframes prefixing.
+// Named specifically (not the generic "slide") to avoid collisions with third-party global keyframes.
+@keyframes navbar-subnav-slide {
+  from {
+      top: $app-navbar-height;
+  }
+  to {
+      top: 0;
+  }
+}
+

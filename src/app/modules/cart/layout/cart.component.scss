@@ -2,3 +2,26 @@
     padding: 26px;
     font-size: 75px;
 }
+
+// Match nav-tabs style to product detail page
+::ng-deep #checkout-form {
+    .nav-tabs {
+        border-bottom: 1px solid var(--bs-border-color);
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border: none !important;
+            border-bottom: 3px solid transparent !important;
+            border-radius: 0;
+            margin-bottom: -1px;
+            color: var(--bs-body-color);
+            background-color: transparent !important;
+
+            &.active, &:hover {
+                color: var(--bs-primary);
+                border-bottom-color: var(--bs-primary) !important;
+                background-color: transparent !important;
+            }
+        }
+    }
+}

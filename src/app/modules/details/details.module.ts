@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ApttusModule } from '@congacommerce/core';
@@ -38,7 +38,6 @@ import { DetailSectionComponent } from './component/detail-section/detail-sectio
     ConfigurationSummaryModule,
     FormsModule,
     InputFieldModule,
-    DatepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AddressModule,
     TooltipModule.forRoot(),

@@ -10,6 +10,7 @@ import { ManageCartComponent } from './layout/manage-cart.component';
 const routes: Routes = [
   {
     path: 'active',
+    title: 'Active Cart',
     component: ManageCartComponent
   }
 ];

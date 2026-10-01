@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginLayoutComponent } from './layout/login-layout.component';
-import { FormsModule } from '@angular/forms';
-import { LaddaModule } from 'angular2-ladda';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginViewComponent } from './layout/login-view.component';
+import { LoginFormModule } from '@congacommerce/elements';
+import { LogoutViewComponent } from './layout/logout-view.component';
+
+
 @NgModule({
+  declarations: [LoginViewComponent, LogoutViewComponent],
   imports: [
     CommonModule,
-    FormsModule,
+    RouterModule,
     LoginRoutingModule,
-    LaddaModule,
-    TranslateModule.forChild()
-  ],
-  declarations: [LoginLayoutComponent]
+    LoginFormModule,
+    TranslateModule
+  ]
 })
 export class LoginModule { }

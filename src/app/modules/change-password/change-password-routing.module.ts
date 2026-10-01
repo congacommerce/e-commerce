@@ -9,6 +9,7 @@ import { ChangePasswordLayoutComponent } from './layout/change-password-layout.c
 
 const routes: Routes = [{
   path : '',
+  title: 'Change Password',
   component : ChangePasswordLayoutComponent
 }];
 

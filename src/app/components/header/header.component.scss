@@ -1,16 +1,24 @@
 @use 'sass:math';
 @import "variables";
 .navbar-brand img{
-    max-height: math.div($navbar-brand-height, 2);
+    max-height: math.div($app-navbar-height, 2);
+}
+.navbar-toggler {
+    border: none;
+    box-shadow: none;
+    &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+    }
 }
 .navbar{
-    height: $navbar-brand-height;
+    height: $app-navbar-height;
     transition: margin 300ms;
     transition: height 300ms;
     &.top{
         margin-top: 0px;
         box-shadow: 0 1px 3px rgba(50, 50, 50, 0.4);
-        height: $navbar-brand-height * .6;
+        height: $app-navbar-height * .6;
     }
 }
 .subnav{
@@ -67,4 +75,9 @@ apt-spinner{
 
 app-category-carousel {
     width: 100%;
-} 
+}
+
+.profile-avatar {
+    object-fit: cover;
+    flex-shrink: 0;
+}

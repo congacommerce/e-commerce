@@ -4,11 +4,11 @@
       <tbody>
         <tr>
           <td class="w-50">
-            <div *ngIf="attachments; else noAttachments" class="pr-2">
+            <div *ngIf="attachments; else noAttachments" class="pe-2">
               <div class="mb-2" *ngFor="let attachment of attachments">
                 <div class="row">
                   <div class="col"><span class="text-underline cursor-pointer">{{attachment?.Name}}</span></div>
-                  <div class="col"><span>{{(attachment?.BodyLength/1024).toFixed(2)}} KB</span></div>
+                  <div class="col"><span>{{((attachment?.BodyLength ?? 0)/1024).toFixed(2)}} KB</span></div>
                   <div class="col"><span>{{attachment?.CreatedDate | date:'short'}}</span></div>
                   <div class="col"><span class="cursor-pointer" [tooltip]="'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.REMOVE_ATTACHMENT' | translate">&times;</span></div>
                 </div>
@@ -20,20 +20,20 @@
               </ng-template>
             </div>
           </td>
-          <td class="w-50 border-left pl-4">
-            <div class="form-group">
+          <td class="w-50 border-start ps-4">
+            <div class="mb-3">
               <div *ngIf="uploadFileList && !hasSizeError">
                 <div class="d-flex justify-content-between" *ngFor="let file of uploadFileList">
                   <div class="w-70"><span>{{file?.name}}</span></div>
-                  <div class="w-30"><span>{{(file?.size/1024).toFixed(2)}} KB</span></div>
+                  <div class="w-30"><span>{{((file?.size ?? 0)/1024).toFixed(2)}} KB</span></div>
                 </div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="file-upload" class="">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.TITLE' | translate}}</label>
               <div class="bg-white border border-secondary text-center align-middle file-upload" id="file-upload">
                 <label class="p-5" for="browse">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.INPUT_LABEL' | translate}}<span
-                    class="pl-1 text-underline cursor-pointer">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.BROWSE' | translate}}</span></label>
+                    class="ps-1 text-underline cursor-pointer">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.BROWSE' | translate}}</span></label>
                 <input id="browse" class="position-absolute p-5" type="file" (change)="fileChange($event)"
                   data-max-size="26214400" />
               </div>
@@ -42,7 +42,7 @@
                 </p>
               </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <div class="d-flex justify-content-end">
                 <button type="reset" class="btn btn-link m-2" data-style="zoom-in" data-spinner-color="black">
                   <small>{{'COMMON.CLEAR' | translate }}</small>

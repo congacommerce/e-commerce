@@ -7,7 +7,8 @@ import { UserService, User, Cart, CartService, StorefrontService } from '@congac
 @Component({
   selector: 'app-my-account-layout',
   templateUrl: './my-account-layout.component.html',
-  styleUrls: ['./my-account-layout.component.scss']
+  styleUrls: ['./my-account-layout.component.scss'],
+  standalone: false
 })
 export class MyAccountLayoutComponent implements OnInit {
 

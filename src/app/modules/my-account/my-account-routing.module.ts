@@ -20,38 +20,47 @@ import { FavoriteListComponent } from './component/favorite-list/favorite-list.c
 const routes: Routes = [
   {
     path : '',
+    title: 'My Account',
     component: MyAccountLayoutComponent,
     children : [
       {
         path : 'dashboard',
+        title: 'My Account - Dashboard',
         component : DashboardComponent
       },
       {
         path : 'orders',
+        title: 'My Account - Orders',
         component : OrderListComponent
       },
       {
         path : 'quotes',
+        title: 'My Account - Quotes',
         component : QuoteListComponent
       },
       {
         path : 'wishlists',
+        title: 'My Account - Wishlists',
         component : WishlistsComponent
       },
       {
         path : 'addresses',
+        title: 'My Account - Addresses',
         component : AddressBookComponent
       },
       {
         path : 'settings',
+        title: 'My Account - Settings',
         component : SettingsComponent
       },
       {
         path : 'carts',
+        title: 'My Account - Carts',
         component : CartListComponent
       },
       {
         path : 'favorites',
+        title: 'My Account - Favorites',
         component : FavoriteListComponent
       },
       {

@@ -12,6 +12,7 @@ import { DetailsGuard } from '@congacommerce/ecommerce';
 const routes: Routes = [
   {
     path: ':id',
+    title: 'Order Details',
     component: OrderDetailComponent,
     canActivate: [DetailsGuard]
   },

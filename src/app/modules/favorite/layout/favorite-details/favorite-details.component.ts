@@ -10,7 +10,8 @@ import { ExceptionService } from '@congacommerce/elements';
   selector: 'app-favorite-details',
   templateUrl: './favorite-details.component.html',
   styleUrls: ['./favorite-details.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class FavoriteDetailsComponent implements OnInit, OnDestroy {
 

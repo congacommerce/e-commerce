@@ -10,13 +10,10 @@ import { BatchSelectionService } from '@congacommerce/elements';
 @Component({
   selector: 'app-root',
   template: `
-    <app-header></app-header>
-    <main>
-      <router-outlet></router-outlet>
-      <apt-product-drawer *ngIf="showDrawer$ | async"></apt-product-drawer>
-    </main>
+    <router-outlet></router-outlet>
     `,
-  styles: []
+  styles: [],
+  standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subs: Array<any> = [];
@@ -27,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private titleService: Title,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private batchSelectionService: BatchSelectionService) {
+    private BatchSelectionService: BatchSelectionService) {
   }
 
   ngOnInit() {
@@ -50,8 +47,8 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     this.showDrawer$ = combineLatest([
-      this.batchSelectionService.getSelectedProducts(),
-      this.batchSelectionService.getSelectedLineItems()
+      this.BatchSelectionService.getSelectedProducts(),
+      this.BatchSelectionService.getSelectedLineItems()
     ])
       .pipe(map(([productList, lineItemList]) => get(productList, 'length', 0) > 0 || get(lineItemList, 'length', 0) > 0));
   }
