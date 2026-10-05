@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AttachmentComponent } from './attachment/attachment.component';
 import { PricingModule } from '@congacommerce/ecommerce';
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { MiniProfileModule, MiniCartModule, ConstraintRuleModule, IconModule, PriceModule, 
   DirectivesModule, ProductSearchModule, PriceModalModule, RevalidateCartModalModule } from '@congacommerce/elements';
@@ -35,7 +36,8 @@ import { CategoryCarouselComponent } from './category-carousel/category-carousel
     DirectivesModule,
     ProductSearchModule,
     PriceModalModule,
-    RevalidateCartModalModule
+    RevalidateCartModalModule,
+    ModalModule
   ],
   exports : [
     HeaderComponent,

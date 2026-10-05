@@ -6,7 +6,7 @@ import { RequestQuoteFormComponent } from './component/request-quote-form/reques
 import { TranslateModule } from '@ngx-translate/core'; 
 import { PricingModule } from '@congacommerce/ecommerce';
 import { PriceModule, InputSelectModule, BreadcrumbModule, InputFieldModule, AddressModule, IconModule, LineItemTableRowModule, PriceSummaryModule } from '@congacommerce/elements';
-import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule } from '@angular/forms';
 import { DetailsModule } from '../details/details.module';
 import { QuoteDetailsComponent } from './layout/quote-details/quote-details.component';
@@ -21,7 +21,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     FormsModule,
     PriceModule,
     PricingModule,
-    DatepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     InputSelectModule,
     BreadcrumbModule,

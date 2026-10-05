@@ -10,10 +10,12 @@ import { InstalledProductsLayoutComponent } from './layout/installed-products-la
 const routes: Routes = [
   {
     path: '',
+    title: 'Installed Products',
     component: InstalledProductsLayoutComponent
   },
   {
     path: ':operation/:productId',
+    title: 'Installed Products',
     component: InstalledProductsLayoutComponent
   }
 ];

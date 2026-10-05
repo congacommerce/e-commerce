@@ -8,7 +8,8 @@ import { flatMap, take } from 'rxjs/operators';
 @Component({
   selector: 'app-reorder',
   templateUrl: './reorder.component.html',
-  styleUrls: ['./reorder.component.scss']
+  styleUrls: ['./reorder.component.scss'],
+  standalone: false
 })
 export class ReorderComponent implements OnInit {
   cart: Cart;

@@ -10,6 +10,7 @@ import { OrderHistoryLayoutComponent } from './layout/order-history-layout.compo
 const routes: Routes = [
   {
     path : '',
+    title: 'Order History',
     component : OrderHistoryLayoutComponent
   }
 ];

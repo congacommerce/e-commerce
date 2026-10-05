@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   selector: 'app-manage-cart',
   templateUrl: './manage-cart.component.html',
   styleUrls: ['./manage-cart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 
 export class ManageCartComponent implements OnInit {

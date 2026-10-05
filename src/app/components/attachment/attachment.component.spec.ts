@@ -1,16 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { AttachmentService } from '@congacommerce/ecommerce';
 import { AttachmentComponent } from './attachment.component';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
   let fixture: ComponentFixture<AttachmentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AttachmentComponent ]
-    })
-    .compileComponents();
+      declarations: [ AttachmentComponent ],
+      providers: [
+        { provide: AttachmentService, useValue: {} },
+        { provide: 'configuration', useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    });
   }));
 
   beforeEach(() => {

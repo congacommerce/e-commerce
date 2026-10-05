@@ -7,7 +7,8 @@ import { first, get, slice, reverse, sortBy, last, isNil } from 'lodash';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: false
 })
 export class HomeComponent implements OnInit {
 

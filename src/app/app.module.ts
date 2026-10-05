@@ -2,7 +2,7 @@
  * @ignore
  */
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,9 +12,9 @@ import { CommerceModule, TranslatorLoaderService } from '@congacommerce/ecommerc
 import { environment } from '../environments/environment';
 import { ComponentModule } from './components/component.module';
 import { RouteGuard } from './services/route.guard';
-import { AuthGuard } from './services/auth.guard';
 import { ConfigureGuard } from './services/configure.guard';
 import { ConstraintRuleGuard } from './services/constraint-rule.guard';
+import { MainComponent } from './main.component';
 
 // Register locale data
 import localeMx from '@angular/common/locales/es-MX';
@@ -33,12 +33,13 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 // Translations
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AboGuard } from './services/abo.guard';
-import { SessionGuard, DetailsGuard } from '@congacommerce/ecommerce';
+import { DetailsGuard } from '@congacommerce/ecommerce';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,7 @@ import { SessionGuard, DetailsGuard } from '@congacommerce/ecommerce';
     HttpClientModule,
     ComponentModule
   ],
-  providers: [RouteGuard, AuthGuard, AboGuard, ConfigureGuard, ConstraintRuleGuard, SessionGuard, DetailsGuard],
+  providers: [provideZoneChangeDetection(), RouteGuard, AboGuard, ConfigureGuard, ConstraintRuleGuard, DetailsGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

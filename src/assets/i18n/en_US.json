@@ -642,6 +642,8 @@
         "SIGN_IN": "Sign in",
         "LOGOUT": "You have been logged out",
         "LOGOUT_TITLE": "Session Expired",
+        "LOGGED_OUT_TITLE": "Logged Out",
+        "BACK_TO_LOGIN": "Back to Login",
         "INCORRECT_CREDENTIALS_TOASTR_MESSAGE": "Your username or password is incorrect.",
         "INCORRECT_CREDENTIALS_TOASTR_TITLE": "Login Fail",
         "COULD_NOT_REGISTER": "Could not complete registration. Please contact your administrator.",

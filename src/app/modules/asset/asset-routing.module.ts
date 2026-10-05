@@ -5,6 +5,7 @@ import { AssetListComponent } from './pages/asset-list/asset-list.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Assets',
     component: AssetListComponent
   }
 ];

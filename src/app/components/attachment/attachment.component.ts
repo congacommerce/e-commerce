@@ -5,7 +5,8 @@ import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-attachment',
   templateUrl: './attachment.component.html',
-  styleUrls: ['./attachment.component.scss']
+  styleUrls: ['./attachment.component.scss'],
+  standalone: false
 })
 export class AttachmentComponent implements OnChanges {
   @Input() item: Order | Quote;

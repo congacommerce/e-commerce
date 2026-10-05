@@ -2,21 +2,21 @@
   <div class="detail-header">
     <div class="d-flex d-flex align-items-center mb-2">
       <h3 class="m-0">{{quote?.Proposal_Name}}</h3>
-      <span class="badge badge-light ml-3 px-3 py-1 border text-uppercase"
+      <span class="badge text-bg-light ms-3 px-3 py-1 border text-uppercase"
             *ngIf="quote?.Approval_Stage">{{quote?.Approval_Stage}}</span>
-      <div *ngIf="quote?.Approval_Stage === 'Accepted' && order$ | async as order" class="ml-auto">
-                <span class="pr-4 d-flex align-items-center">
+      <div *ngIf="quote?.Approval_Stage === 'Accepted' && order$ | async as order" class="ms-auto">
+                <span class="pe-4 d-flex align-items-center">
                     <apt-output-field [record]="order" field="Name" label="Order ID" layout="inline"
                                       [editable]="false" [showQuickView]="true"></apt-output-field>
-                    <span class="badge badge-info ml-1">{{order?.Status}}</span>
+                    <span class="badge text-bg-info ms-1">{{order?.Status}}</span>
                 </span>
       </div>
 
-      <button type="button" class="btn btn-primary btn-raised ml-auto" [ladda]="accept_loader"
+      <button type="button" class="btn btn-primary btn-raised ms-auto" [ladda]="accept_loader"
               *ngIf="quote?.Approval_Stage === 'Presented'"
               (click)="acceptQuote(quote?.Id)">{{'COMMON.ACCEPT_QUOTE' | translate}}</button>
     </div>
-    <span>{{quote?.Name}}</span>
+    <span class="mt-1 d-block">{{quote?.Name}}</span>
   </div>
 
   <app-detail-section [title]="'DETAILS.QUOTE_SUMMARY' | translate">
@@ -69,7 +69,7 @@
       <div class="card-body">
         <h5 class="py-2">
           {{'DETAILS.LINE_ITEMS' | translate}}
-          <button class="btn btn-sm btn-outline-primary px-4 ml-4" *ngIf="quote?.Approval_Stage === 'Draft' || quote?.Approval_Stage === 'Presented'"  [ladda]="edit_loader"  data-style="zoom-in"  data-spinner-color="black" (click)="editQuoteItems(quote.Id)">{{'COMMON.EDIT' | translate}}</button>
+          <button class="btn btn-sm btn-outline-primary px-4 ms-4" *ngIf="quote?.Approval_Stage === 'Draft' || quote?.Approval_Stage === 'Presented'"  [ladda]="edit_loader"  data-style="zoom-in"  data-spinner-color="black" (click)="editQuoteItems(quote.Id)">{{'COMMON.EDIT' | translate}}</button>
         </h5>
         <table class="table table-responsive border-bottom" *ngIf="quoteLineItems$ | async as quoteLineItems; else loading">
           <tbody>
@@ -95,7 +95,7 @@
           {{'DETAILS.COMMENTS' | translate}} <span *ngIf="noteList?.length > 0">({{noteList?.length}})</span>
         </h5>
         <div class="row">
-          <div class="col-12 col-md-6 border-right note-container">
+          <div class="col-12 col-md-6 border-end note-container">
             <ng-scrollbar>
               <ng-container *ngIf="noteList?.length > 0; else emptyNotes">
                 <div class="my-3 pb-3" *ngFor="let note of noteList">
@@ -144,7 +144,7 @@
         </h5>
 
         <div class="row">
-          <div class="col-12 col-md-6 border-right attachment-container">
+          <div class="col-12 col-md-6 border-end attachment-container">
             <ng-scrollbar>
               <ng-container *ngIf="attachmentList?.length > 0; else emptyAttachments">
                 <div class="mb-2 hide-hscroll" *ngFor="let attachment of attachmentList">
@@ -152,12 +152,12 @@
                     <div class="col-md-6">
                       <div class="d-flex justify-content-between"><a class="text-underline"
                                                                      href="{{downloadAttachment(attachment.Id, quote.Id)}}"
-                                                                     target="_blank">{{attachment?.Name}}</a><span>{{(attachment?.BodyLength/1024).toFixed(2)}}
+                                                                     target="_blank">{{attachment?.Name}}</a><span>{{((attachment?.BodyLength ?? 0)/1024).toFixed(2)}}
                                                     KB</span></div>
                     </div>
                     <div class="col-md-6">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.BY' | translate}}<span
-                      class="pl-2">{{attachment?.CreatedBy.Name}},</span><span
-                      class="pl-3">{{attachment?.CreatedDate | date:'short'}}</span></div>
+                      class="ps-2">{{attachment?.CreatedBy.Name}},</span><span
+                      class="ps-3">{{attachment?.CreatedDate | date:'short'}}</span></div>
                   </div>
                 </div>
               </ng-container>
@@ -171,14 +171,14 @@
           </div>
           <div class="col-12 col-md-6">
             <form (ngSubmit)="uploadAttachment(quote.Id)">
-              <label class="font-weight-bold">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.TITLE' | translate}}</label>
+              <label class="fw-bold">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.TITLE' | translate}}</label>
               <div class="file-section bg-light d-flex align-items-center justify-content-center border-secondary file-upload"
                    (dragover)="onDragFile($event)" (drop)="onDropFile($event)" data-max-size="26214400">
                 <label class="p-5 position-relative" for="browse"><span
                   class="position-absolute upload-icon-position"><i
                   class="fa fa-4x fa-cloud-upload text-black-50"></i></span><span
-                  class="pl-4">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.INPUT_LABEL' | translate}}</span><span
-                  class="pl-1 text-underline cursor-pointer">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.BROWSE' | translate}}</span></label>
+                  class="ps-4">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.INPUT_LABEL' | translate}}</span><span
+                  class="ps-1 text-underline cursor-pointer">{{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.BROWSE' | translate}}</span></label>
                 <input id="browse" class="d-none p-5" type="file" (change)="fileChange($event)"
                        data-max-size="26214400" />
               </div>
@@ -187,11 +187,11 @@
                   {{'MY_ACCOUNT.QUOTE_DETAIL.ATTACHMENTS.FILE_SIZE_EXCEEDED_ERROR' | translate}}
                 </p>
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                 <div class="mt-2" *ngIf="uploadFileList && !hasSizeError">
                   <div class="d-flex justify-content-between" *ngFor="let file of uploadFileList">
                     <div class="w-70"><span>{{file?.name}}</span></div>
-                    <div class="w-30"><span>{{(file?.size/1024).toFixed(2)}} KB</span></div>
+                    <div class="w-30"><span>{{((file?.size ?? 0)/1024).toFixed(2)}} KB</span></div>
                   </div>
                 </div>
               </div>
@@ -210,11 +210,10 @@
 
   <ng-template #intimationTemplate>
     <div class="modal-header align-items-center p-0 mx-4 mt-3 border-bottom border-secondary">
-      <h6 class="modal-title pull-left font-weight-bold">
+      <h6 class="modal-title float-start fw-bold">
         {{'COMMON.ACCEPT_QUOTE' | translate}}
       </h6>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()">
       </button>
     </div>
     <div class="modal-body d-flex flex-column justify-content-center py-4">

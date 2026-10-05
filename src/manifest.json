@@ -1,0 +1,16 @@
+{
+  "name": "Conga B2B E-commerce",
+  "short_name": "Conga",
+  "theme_color": "#61a70f",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/icons/favicon-conga.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -14,7 +14,8 @@ import { ClassType } from 'class-transformer/ClassTransformer';
   selector: 'app-installed-products-layout',
   templateUrl: './installed-products-layout.component.html',
   styleUrls: ['./installed-products-layout.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  standalone: false
 })
 export class InstalledProductsLayoutComponent implements OnInit, OnDestroy {
   /**

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   // tslint:disable-next-line:component-selector
   selector: 'nav-account',
   templateUrl: './nav-account.component.html',
-  styleUrls: ['./nav-account.component.scss']
+  styleUrls: ['./nav-account.component.scss'],
+  standalone: false
 })
 export class NavAccountComponent implements OnInit {
   account$: Observable<Account>;

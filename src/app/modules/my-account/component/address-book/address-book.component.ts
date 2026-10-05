@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, NgZone,ChangeDetectionStrategy} from '@
 import { AccountLocationService, AccountLocation } from '@congacommerce/ecommerce';
 import { Observable } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 
@@ -19,7 +19,8 @@ import * as _ from 'lodash';
     }
   `],
   providers: [],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  standalone: false
 })
 export class AddressBookComponent implements OnInit {
   modalRef: BsModalRef;
